@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>С Днём Рождения, Папа!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Фоновое видео -->
+  <video autoplay muted loop id="bg-video">
+    <source src="https://www.videvo.net/videvo_files/converted/2016_08/preview/160725_B_03_Confetti.mp453180.webm" type="video/webm">
+  </video>
+  <div class="overlay"></div>
+
+  <h1>Туған күніңмен, Папа!</h1>
+  <p class="intro-text">Сен - біздің батырымыз! Саған зор бақыт, зор денсаулық және әр күніңде шынайы қуаныш тілейміз!</p>
+
+  <!-- Плавающие сердечки -->
+  <div class="hearts"></div>
+
+  <!-- Таймер -->
+  <div id="countdown">
+    <h2>Келесі туғын күніне дейін:</h2>
+    <div class="time-boxes">
+      <span id="days">0</span><small>күн</small>
+      <span id="hours">0</span><small>сағат</small>
+      <span id="minutes">0</span><small>минут</small>
+      <span id="seconds">0</span><small>секунд</small>
+    </div>
+  </div>
+
+  <!-- Слайдшоу -->
+  <div class="slideshow">
+    <img class="slide active-slide" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW_b8cbpVc1MWL_whjwAVxGR3pzWYkSUx0EA&s" alt="Фото 1">
+    <img class="slide" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdtHEVHFdE7LSvt4qDAIbWq1aO-98usejNTg&s" alt="Фото 2">
+    <img class="slide" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRObQ3bGzAlOmAP5GlS-zQi7n9KIZTs39CUyA&s" alt="Фото 3">
+  </div>
+
+  <!-- Кнопки -->
+  <button onclick="showSurprise()">Нажми на меня!</button>
+
+
+  <div id="surprise">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpFCxPGrw8LiNWzRTdEedTkCOmUAqWT91y1g&s" alt="Сюрприз">
+    <h2>! ! Сен ең керемет әкесін ! !</h2>
+  </div>
+
+  <!-- Карточки с фактами -->
+  <section class="facts">
+    <h2>Достижения</h2>
+    <div class="fact-cards">
+      <div class="card">Мастер на все руки</div>
+      <div class="card">Лучший папа</div>
+      <div class="card">Всегда поддержит</div>
+      <div class="card">Никогда не сдаётся</div>
+    </div>
+  </section>
+
+  <!-- Музыка -->
+  <audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function showSurprise() {
+      document.getElementById("surprise").style.display = "block";
+    }
+
+    // Слайдшоу
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".slide");
+    setInterval(() => {
+      slides.forEach(slide => slide.classList.remove("active-slide"));
+      slideIndex = (slideIndex + 1) % slides.length;
+      slides[slideIndex].classList.add("active-slide");
+    }, 4000);
+
+    // Таймер до следующего ДР (пример: 1 января)
+    const targetDate = new Date("2026-04-30T00:00:00").getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+      const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((distance % (1000 * 60)) / 1000);
+      document.getElementById("days").innerText = d;
+      document.getElementById("hours").innerText = h;
+      document.getElementById("minutes").innerText = m;
+      document.getElementById("seconds").innerText = s;
+    }, 1000);
+
+    // Плавающие сердечки
+    const hearts = document.querySelector(".hearts");
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 2 + Math.random() * 3 + "s";
+      hearts.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }, 300);
+  </script>
+</body>
+</html>
